@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 _() {
-  YEAR="2021-09-23T18:00:00"
+  YEAR="1998-10-17T18:00:00"
   #echo "GitHub Username: "
   #read -r USERNAME
   #echo "GitHub Access token: "
@@ -18,7 +18,7 @@ _() {
   git add .
   GIT_AUTHOR_DATE="${YEAR}" \
     GIT_COMMITTER_DATE="${YEAR}" \
-    git commit -m "init"
+    git commit -m "Today My BirthDay"
   git remote add origin "https://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@github.com/${USERNAME}/bigger-picture.git"
   git branch -M main
   git push -u origin main -f
