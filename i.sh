@@ -2,7 +2,7 @@
 for i in 1 2 3 4 5
 do
       _() {
-      YEAR="2021-10-31T18:00:00"
+      YEAR="2021-10-${i}T18:00:00"
       #echo "GitHub Username: "
       #read -r USERNAME
       #echo "GitHub Access token: "
