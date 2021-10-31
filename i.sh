@@ -26,6 +26,7 @@ do
       echo
       echo "Cool, check your profile now: https://github.com/${USERNAME}"
     } && _
-    unset -f _
    echo "Welcome $i times"
 done
+
+unset -f _
