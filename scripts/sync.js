@@ -7,11 +7,11 @@ import path from 'path'
 ;
 
 (async function () {
-	const title = 'Frequently Asked JavaScript Interview Questions'
+	const title = 'Frequently Asked Angular Interview Questions'
 	const resources = [
 		{
-			title: 'Typescript Documentations',
-			url: 'https://www.typescriptlang.org/',
+			title: 'Angular Documentations',
+			url: 'https://angular.io/',
 		},
 	]
 	const fromDir = (startPath, filter, callback) => {
