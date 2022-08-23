@@ -12,14 +12,19 @@
 - [5 What is change detection ?](#what-is-change-detection)
 - [6 What is the use of ngOnChanges?](#what-is-the-use-of-ngonchanges)
 - [7 Difference between Constructor and ngOnInit ?](#difference-between-constructor-and-ngoninit)
-- [8 What is TypeScript and why it is used?](#what-is-typescript-and-why-it-is-used)
-- [9 What is Components?](#what-is-components)
-- [10 What Is Angular?](#what-is-angular)
-- [11 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
-- [12 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [13 What are templates in Angular](#what-are-templates-in-angular)
-- [14 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [15 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [8 What is the use of app root in Angular?](#what-is-the-use-of-app-root-in-angular)
+- [9 What is Ahead of Time (AOT) compiler ?](#what-is-ahead-of-time-aot-compiler)
+- [10 What is the Just in Time (JIT) compiler ?](#what-is-the-just-in-time-jit-compiler)
+- [11 What is the entry point of Angular application?](#what-is-the-entry-point-of-angular-application)
+- [12 What is TypeScript and why it is used?](#what-is-typescript-and-why-it-is-used)
+- [13 What is destroy in Angular?](#what-is-destroy-in-angular)
+- [14 What is Components?](#what-is-components)
+- [15 What Is Angular?](#what-is-angular)
+- [16 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
+- [17 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [18 What are templates in Angular](#what-are-templates-in-angular)
+- [19 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [20 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -125,7 +130,24 @@ The Constructor is a default method of the class that is executed when the class
 
 ngOnInit is a life cycle hook called by Angular to indicate that Angular is done creating the component.
 
-8. ### What is TypeScript and why it is used?
+8. ### What is the use of app root in Angular?
+
+The root app module is just the beginning. It is a necessary part of any Angular app, but it is also just the entry point to the rest of your app's feature modules.
+
+9. ### What is Ahead of Time (AOT) compiler ?
+
+when you serve/build your angular application, the Ahead of Time compiler converts your code during the build time before your browser downloads and runs that code. From Angular 9, by default compiling option is set to true for ahead of time compiler.
+
+10. ### What is the Just in Time (JIT) compiler ?
+
+Just in time compiler provides compilation during the execution of the program at a run time before execution. In simple words, code get compiles when it’s needed, not at the build time. Initially, compiler was responsible for converting a high-level language into machine language, which would then be converted into executable code.
+Just in time compiler, compiles code at runtime which means instead of interpreting byte code at build time, it will compile byte code when that component is called
+
+11. ### What is the entry point of Angular application?
+
+A bootstrapped component is an entry component that Angular loads into the DOM during the bootstrap process (application launch). Other entry components are loaded dynamically by other means, such as with the router. Angular loads a root AppComponent dynamically because it's listed by type in @NgModule. bootstrap .
+
+12. ### What is TypeScript and why it is used?
 
 TypeScript is a programming language first developed by Microsoft in 2012. Its main ambition is to improve the productivity of developing complex applications.
 It is an open-source language developed as a superset of JavaScript. What this means in simple terms is that any code valid in JavaScript is also valuable for TypeScript.
@@ -146,7 +168,11 @@ var x: number = 1
 var y: number = 2
 ```
 
-9. ### What is Components?
+13. ### What is destroy in Angular?
+
+A lifecycle hook that is called when a directive, pipe, or component is destroyed. The ngOnDestroy or OnDestroy hook is called just before the Component/Directive instance is destroyed by Angular. Use this hook to Perform any cleanup logic for the Component. This is the correct place where you would like to Unsubscribe Observables and detach event handlers to avoid memory leaks.
+
+14. ### What is Components?
 
 In Angular, Components are the most basic UI building block of an Angular app. An Angular app contains a tree of Angular components. Angular components are a subset of directives, always associated with a template. Unlike other directives, only one component can be instantiated for a given element in a template.
 
@@ -168,11 +194,11 @@ export class AppComponent {
 }
 ```
 
-10. ### What Is Angular?
+15. ### What Is Angular?
 
 Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with. It enables users to create large applications in a maintainable manner.
 
-11. ### What are the core building block of angular
+16. ### What are the core building block of angular
 
 The various building blocks of Angular are:
 
@@ -187,7 +213,7 @@ The various building blocks of Angular are:
 - Services
 - Dependency Injection
 
-12. ### Difference between Angular and AngularJS
+17. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -198,7 +224,7 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-13. ### What are templates in Angular
+18. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -219,7 +245,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-14. ### What Is property binding in angular ?
+19. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -237,7 +263,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-15. ### What is the difference between properties and attributes in HTML?
+20. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
