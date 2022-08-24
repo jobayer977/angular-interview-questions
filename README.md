@@ -18,13 +18,23 @@
 - [11 What is the entry point of Angular application?](#what-is-the-entry-point-of-angular-application)
 - [12 What is TypeScript and why it is used?](#what-is-typescript-and-why-it-is-used)
 - [13 What is destroy in Angular?](#what-is-destroy-in-angular)
-- [14 What is Components?](#what-is-components)
-- [15 What Is Angular?](#what-is-angular)
-- [16 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
-- [17 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [18 What are templates in Angular](#what-are-templates-in-angular)
-- [19 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [20 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [14 What does bootstrapping in Angular mean?](#what-does-bootstrapping-in-angular-mean)
+- [15 What is NgModule ?](#what-is-ngmodule)
+- [16 What are exports in NgModule?](#what-are-exports-in-ngmodule)
+- [17 What are imports in NgModule?](#what-are-imports-in-ngmodule)
+- [18 What is  declaration in Angular Module ?](#what-is-declaration-in-angular-module)
+- [19 What is angular markup ?](#what-is-angular-markup)
+- [20 What is providers in angular ?](#what-is-providers-in-angular)
+- [21 What is injector in angular ?](#what-is-injector-in-angular)
+- [22 How angular injector works ?](#how-angular-injector-works)
+- [23 What is Components?](#what-is-components)
+- [24 When is Angular Injector is created ?](#when-is-angular-injector-is-created)
+- [25 What Is Angular?](#what-is-angular)
+- [26 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
+- [27 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [28 What are templates in Angular](#what-are-templates-in-angular)
+- [29 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [30 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -172,7 +182,185 @@ var y: number = 2
 
 A lifecycle hook that is called when a directive, pipe, or component is destroyed. The ngOnDestroy or OnDestroy hook is called just before the Component/Directive instance is destroyed by Angular. Use this hook to Perform any cleanup logic for the Component. This is the correct place where you would like to Unsubscribe Observables and detach event handlers to avoid memory leaks.
 
-14. ### What is Components?
+14. ### What does bootstrapping in Angular mean?
+
+Angular bootstrapping is the process of initializing the Angular application. It is the first step in the application's lifecycle. Angular application are mainly bootstrapped from `main.ts` file. This file is the entry point for the application and is responsible for bootstrapping the application.
+
+15. ### What is NgModule ?
+
+NgModule is kind of a manager for the application. It is responsible for registering all the components, directives, pipes, etc. that are part of this module context. A application can have multiple modules. Each module is responsible for registering its own components, directives, pipes, etc. The core module imports all the other modules.
+
+**Example:**
+
+```typescript
+@NgModule({
+  declarations: [
+    ...
+  ],
+  imports: [
+    BrowserModule,
+    ...
+  ],
+  providers: [
+    ...
+  ],
+})
+export class ExampleModule { }
+```
+
+**Note:** NgModule is a class that can be used to group components, directives, and pipes into an application and provide additional configuration options to those components.
+
+16. ### What are exports in NgModule?
+
+When we went to share some feature with another module, we declare it in the exports array of the NgModule. This can be used in the other module to import the feature.
+
+**Parent module:**
+
+```typescript
+@NgModule({
+  declarations: [
+    ButtonComponent
+  ],
+  exports: [
+    ButtonComponent
+  ]
+})
+
+export class ParentModule { }
+```
+
+We export the button component from the parent module. So now other modules can use this button component if they import the parent module.
+
+**Child module:**
+
+```typescript
+@NgModule({
+  imports: [
+    ParentModule,
+  ],
+})
+export class ChildModule { }
+```
+
+17. ### What are imports in NgModule?
+
+When we need some feature from another module, We declare it in the imports array of the NgModule. Importing a module is a two-step process. First, we have to export the feature from the module we want to import. Second, we have to import the feature from the module we want to import.
+
+**Parent module:**
+
+```typescript
+@NgModule({
+  declarations: [
+    ButtonComponent
+  ],
+  exports: [
+    ButtonComponent
+  ]
+})
+export class ParentModule { }
+```
+
+**Child module:**
+
+```typescript
+@NgModule({
+  imports: [
+    ParentModule,
+  ],
+})
+export class ChildModule { }
+```
+
+The above example first we export the ButtonComponent from the ParentModule and then we import it in the ChildModule. Now we can use the ButtonComponent in the ChildModules anywhere.
+
+18. ### What is  declaration in Angular Module ?
+
+In Angular module, Declaration is a list that contains all the components, directives, pipes, and services that belong to the module.
+
+**Component:**  Component is a UI building block. A component is a self-contained piece of UI that only needs to be built once, and can be used multiple times in other parts of an application.
+
+```typescript
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+}
+```
+
+**Directive:**  Directive are classes that contain a custom behavior. A directive is a behavior that can be attached to elements in the DOM.
+
+```typescript
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+  constructor(el: ElementRef) {
+    el.nativeElement.style.backgroundColor = 'yellow';
+  }
+}
+```
+
+**Pipe:**  Pipes are a simple way to transform the values in an angular template.
+
+```typescript
+@Pipe({
+    name: 'reverse'
+})
+export class ReversePipe implements PipeTransform {
+    transform(value: string) {
+    return value.split('').reverse().join('');
+    }
+}
+```
+
+19. ### What is angular markup ?
+
+Angular markup is a way to write HTML in angular. It is a superset of HTML where we can modify HTML elements before the are displayed. For example, we can add custom attributes `loop` over an array of items and display them in a list `if else` condition etc.
+
+**Example:**
+
+```html
+<ul>
+  <li *ngFor="let item of items">
+    {{item}}
+  </li>
+</ul>
+<p *ngIf="items.length == 0">
+  There are no items in the list.
+</p>
+```
+
+20. ### What is providers in angular ?
+
+Angular has an concept of services and services are used to share data between components and do external works like http requests and database connections. Providers has the all the services listed in the array.
+
+**Note:** Providers are contain only services blueprint not the services instance.
+
+**Example:**
+
+```typescript
+@NgModule({
+  providers: [
+    AuthService,
+    UserService,
+    AuthGuard
+  ]
+})
+export class AppModule { }
+```
+
+21. ### What is injector in angular ?
+
+Injector is a container that holds all the instances of the services. Mainly Responsible for creating the instances of the services and injecting them into the components or services.
+
+22. ### How angular injector works ?
+
+The Injector looks for the dependency in the Angular Providers using the Injection token. The Angular Providers array returns the Provider, which contains the information about how to create the instance of the dependency. The Injector creates the instance and injects it into the Component or service.
+
+23. ### What is Components?
 
 In Angular, Components are the most basic UI building block of an Angular app. An Angular app contains a tree of Angular components. Angular components are a subset of directives, always associated with a template. Unlike other directives, only one component can be instantiated for a given element in a template.
 
@@ -194,11 +382,14 @@ export class AppComponent {
 }
 ```
 
-15. ### What Is Angular?
+24. ### When is Angular Injector is created ?
+The angular injector is created when the application is bootstrapped.
+
+25. ### What Is Angular?
 
 Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with. It enables users to create large applications in a maintainable manner.
 
-16. ### What are the core building block of angular
+26. ### What are the core building block of angular
 
 The various building blocks of Angular are:
 
@@ -213,7 +404,7 @@ The various building blocks of Angular are:
 - Services
 - Dependency Injection
 
-17. ### Difference between Angular and AngularJS
+27. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -224,7 +415,7 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-18. ### What are templates in Angular
+28. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -245,7 +436,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-19. ### What Is property binding in angular ?
+29. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -263,7 +454,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-20. ### What is the difference between properties and attributes in HTML?
+30. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
