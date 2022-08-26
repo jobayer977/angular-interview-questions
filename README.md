@@ -29,12 +29,17 @@
 - [22 How angular injector works ?](#how-angular-injector-works)
 - [23 What is Components?](#what-is-components)
 - [24 When is Angular Injector is created ?](#when-is-angular-injector-is-created)
-- [25 What Is Angular?](#what-is-angular)
-- [26 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
-- [27 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [28 What are templates in Angular](#what-are-templates-in-angular)
-- [29 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [30 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [25 What is BrowserModule used for?](#what-is-browsermodule-used-for)
+- [26 How do you define a component styles?](#how-do-you-define-a-component-styles)
+- [27 How do you define a component template?](#how-do-you-define-a-component-template)
+- [28 Why Use Property Binding?](#why-use-property-binding)
+- [29 What is Interpolation in angular ?](#what-is-interpolation-in-angular)
+- [30 What Is Angular?](#what-is-angular)
+- [31 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
+- [32 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [33 What are templates in Angular](#what-are-templates-in-angular)
+- [34 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [35 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -385,11 +390,120 @@ export class AppComponent {
 24. ### When is Angular Injector is created ?
 The angular injector is created when the application is bootstrapped.
 
-25. ### What Is Angular?
+25. ### What is BrowserModule used for?
+
+BrowserModule provides services that are essential to launch and run a browser app. BrowserModule also re-exports CommonModule from @angular/common, which means that components in the AppModule module also have access to the Angular directives every app needs, such as NgIf and NgFor.
+
+26. ### How do you define a component styles?
+
+Angular applications are styles with standard CSS syntax. Here we can use global styles, component styles, and inline styles.
+
+**Global styles**: Global styles are defined in the `<head>` of the HTML document. In angular global styles are `styles.css`. in root directory. Angular automatically injects the global styles into the `<head>` of the HTML document.
+
+```css
+h1 {
+  color: red;
+}
+```
+
+**Component styles**: Component styles are defined in the `styles` property of the component metadata.
+
+```ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <h1>Hello {{name}}</h1>
+  `,
+  styles: [`h1 { color: red; }`]
+})
+export class AppComponent {
+  name = 'Angular';
+}
+```
+
+**Inline styles**: Inline styles are defined HTML attributes.
+
+```html
+<div [style.background-color]="'yellow'">
+  <h1>Hello {{name}}</h1>
+</div>
+```
+
+27. ### How do you define a component template?
+
+To define a component template, you must use the `template` property in the component metadata. there are two ways to define a template: inline and external.
+
+**Inline template**
+
+```ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <h1>Hello {{name}}</h1>
+  `
+})
+export class AppComponent {
+  name = 'Angular';
+}
+```
+
+**External template**
+
+```ts
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  name = 'Angular';
+}
+```
+
+28. ### Why Use Property Binding?
+Property binding helps us bind the values to a target property of an element enclosed within the square brackets. Property binding is the technique that will help us bind values to HTML elements’ properties.
+
+<details>
+  <summary>Example</summary>
+
+  ```ts
+@Component({
+    selector: 'my-app',
+    template: `
+    <input type="text" [(ngModel)]="name" />
+    `
+})
+class AppComponent {
+    name = 'Angular';
+}
+```
+
+</details>
+
+29. ### What is Interpolation in angular ?
+
+
+Interpolation in Angular is getting the data displayed inside the view. Interpolation allows us to combine calculated strings into the text between the HTML element tags and within the attribute assignments. Interpolation refers to embedding expressions into marked-up text. By default, interpolation uses its delimiter, the double curly braces, {{ and }}.
+
+<details>
+  <summary>Example</summary>
+  
+  ```ts
+@Component({
+    selector: 'my-app',
+    template: `
+    <h1>Hello {{name}}</h1>
+    `
+    })
+class AppComponent {
+    name = 'Angular';
+}
+```
+
+30. ### What Is Angular?
 
 Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with. It enables users to create large applications in a maintainable manner.
 
-26. ### What are the core building block of angular
+31. ### What are the core building block of angular
 
 The various building blocks of Angular are:
 
@@ -404,7 +518,7 @@ The various building blocks of Angular are:
 - Services
 - Dependency Injection
 
-27. ### Difference between Angular and AngularJS
+32. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -415,7 +529,7 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-28. ### What are templates in Angular
+33. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -436,7 +550,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-29. ### What Is property binding in angular ?
+34. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -454,7 +568,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-30. ### What is the difference between properties and attributes in HTML?
+35. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
