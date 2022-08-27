@@ -34,12 +34,17 @@
 - [27 How do you define a component template?](#how-do-you-define-a-component-template)
 - [28 Why Use Property Binding?](#why-use-property-binding)
 - [29 What is Interpolation in angular ?](#what-is-interpolation-in-angular)
-- [30 What Is Angular?](#what-is-angular)
-- [31 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
-- [32 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [33 What are templates in Angular](#what-are-templates-in-angular)
-- [34 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [35 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [30 Why we need attribute binding in angular ?](#why-we-need-attribute-binding-in-angular)
+- [31 What is event bind?](#what-is-event-bind)
+- [32 Difference between One-way & Two-way Binding](#difference-between-one-way-two-way-binding)
+- [33 What is a pipe](#what-is-a-pipe)
+- [34 What Is Angular?](#what-is-angular)
+- [35 What is structural directive and attribute directive in Angular?](#what-is-structural-directive-and-attribute-directive-in-angular)
+- [36 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
+- [37 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [38 What are templates in Angular](#what-are-templates-in-angular)
+- [39 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [40 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -499,11 +504,103 @@ class AppComponent {
 }
 ```
 
-30. ### What Is Angular?
+30. ### Why we need attribute binding in angular ?
+
+If an attribute does't have corresponding DOM property then attribute binding are helpful to bind the attribute value to the DOM property.
+
+```html
+<table>
+	<tr>
+		<td [attr.colspan]="2">
+			<span>Hello</span>
+		</td>
+	</tr>
+</table>
+```
+
+31. ### What is event bind?
+
+Event binding lets you listen for and respond to user actions such as keystrokes, mouse movements, clicks, and touches.
+
+**Example:**
+
+```typescript
+@Component({
+	selector: 'my-app',
+	template: ` <button (click)="onClick()">Click me</button> `,
+})
+export class AppComponent {
+	onClick() {
+		alert('Hello World!')
+	}
+}
+```
+
+32. ### Difference between One-way & Two-way Binding
+
+In one-way binding, the flow is one-directional. In a two-way binding, the flow is two-directional. This means that the flow of code is from ts file to Html file. This means that the flow of code is from ts file to Html file as well as from Html file to ts file.
+
+**One-way binding**
+
+```ts
+@Component({
+	selector: 'my-app',
+	template: `
+		<input type="text" (keyup)="onKeyUp($event)" />
+		<p>{{ values }}</p>
+	`,
+})
+export class AppComponent {
+	values = ''
+	onKeyUp(e) {
+		this.values += e.target.value
+	}
+}
+```
+
+**Two-way binding**
+
+```ts
+@Component({
+	selector: 'my-app',
+	template: `
+		<input type="text" [(ngModel)]="name" />
+		<p>Hello {{ name }}</p>
+	`,
+})
+export class AppComponent {
+	name = 'Angular'
+}
+```
+
+33. ### What is a pipe
+
+Pipes are a way to transform data in templates expressions before it is displayed. It's accepts data as input and returns transformed data as output.
+
+**Example**
+
+```ts
+@Pipe({ name: 'reverse' })
+export class ReversePipe implements PipeTransform {
+	transform(value: any) {
+		return value.split('').reverse().join('')
+	}
+}
+```
+
+```html
+<p>{{ 'Hello' | reverse }}</p>
+```
+
+34. ### What Is Angular?
 
 Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with. It enables users to create large applications in a maintainable manner.
 
-31. ### What are the core building block of angular
+35. ### What is structural directive and attribute directive in Angular?
+
+Attribute directives. Change the appearance or behavior of an element, component, or another directive. Structural directives. Change the DOM layout by adding and removing DOM elements.
+
+36. ### What are the core building block of angular
 
 The various building blocks of Angular are:
 
@@ -518,7 +615,7 @@ The various building blocks of Angular are:
 - Services
 - Dependency Injection
 
-32. ### Difference between Angular and AngularJS
+37. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -529,7 +626,7 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-33. ### What are templates in Angular
+38. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -550,7 +647,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-34. ### What Is property binding in angular ?
+39. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -568,7 +665,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-35. ### What is the difference between properties and attributes in HTML?
+40. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
