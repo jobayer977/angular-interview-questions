@@ -42,11 +42,13 @@
 - [35 What is structural directive and attribute directive in Angular?](#what-is-structural-directive-and-attribute-directive-in-angular)
 - [36 What is injector in angular ?](#what-is-injector-in-angular)
 - [37 What does @injectable decorator do?](#what-does-injectable-decorator-do)
-- [38 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
-- [39 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [40 What are templates in Angular](#what-are-templates-in-angular)
-- [41 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [42 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [38 What is useClass in Angular?](#what-is-useclass-in-angular)
+- [39 What is useExisting in Angular?](#what-is-useexisting-in-angular)
+- [40 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
+- [41 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [42 What are templates in Angular](#what-are-templates-in-angular)
+- [43 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [44 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -614,7 +616,50 @@ _Note:_ A injector has an cache mechanism that prevent to create service instanc
 
 Injectable decorator is used to mark a class as available to be injected as a dependency. It's help to use other classes as a dependency in services. With injectable decorator we can tell Angular to inject other classes as a dependency.
 
-38. ### What are the core building block of angular
+38. ### What is useClass in Angular?
+
+`useClass` - this option is used to specify a class to be used for the service. The class must implement the `useClass` method.
+
+```typescript
+export class NewLogger {
+	constructor() {
+		console.log('NewLogger created')
+	}
+}
+
+@Injectable()
+export class Logger {
+	constructor() {
+		console.log('Logger created')
+	}
+}
+
+@NgModule({
+    providers: [
+        { provide: Logger, useClass: NewLogger }
+    ]
+})
+// Output:
+// NewLogger created
+```
+
+The above example will create a new logger class instead of the default logger class. and provide it to the application through the DI.
+
+39. ### What is useExisting in Angular?
+
+The useExisting provider key lets you map one token to another. In effect, the first token is an alias for the service associated with the second token, creating two ways to access the same service object.
+
+## Example
+
+```typescript
+;[
+	NewLogger,
+	// Alias OldLogger w/ reference to NewLogger
+	{ provide: OldLogger, useExisting: NewLogger },
+]
+```
+
+40. ### What are the core building block of angular
 
 The various building blocks of Angular are:
 
@@ -629,7 +674,7 @@ The various building blocks of Angular are:
 - Services
 - Dependency Injection
 
-39. ### Difference between Angular and AngularJS
+41. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -640,7 +685,7 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-40. ### What are templates in Angular
+42. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -661,7 +706,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-41. ### What Is property binding in angular ?
+43. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -679,7 +724,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-42. ### What is the difference between properties and attributes in HTML?
+44. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
