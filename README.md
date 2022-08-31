@@ -44,11 +44,17 @@
 - [37 What does @injectable decorator do?](#what-does-injectable-decorator-do)
 - [38 What is useClass in Angular?](#what-is-useclass-in-angular)
 - [39 What is useExisting in Angular?](#what-is-useexisting-in-angular)
-- [40 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
-- [41 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [42 What are templates in Angular](#what-are-templates-in-angular)
-- [43 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [44 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [40 What is root in provider in Angular?](#what-is-root-in-provider-in-angular)
+- [41 How we define a wildcard route in angular](#how-we-define-a-wildcard-route-in-angular)
+- [42 When should you use a router outlet?](#when-should-you-use-a-router-outlet)
+- [43 What is Lazy Loading?](#what-is-lazy-loading)
+- [44 What are Angular guards?](#what-are-angular-guards)
+- [45 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
+- [46 What is difference between CanActivate and canActivateChild?](#what-is-difference-between-canactivate-and-canactivatechild)
+- [47 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [48 What are templates in Angular](#what-are-templates-in-angular)
+- [49 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [50 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -659,7 +665,42 @@ The useExisting provider key lets you map one token to another. In effect, the f
 ]
 ```
 
-40. ### What are the core building block of angular
+40. ### What is root in provider in Angular?
+
+`@Injectable()` decorator provideIn root is used to define a service to be a part of root moduleInjector.
+
+41. ### How we define a wildcard route in angular
+
+We can define a wildcard route in our application by using the \*\* syntax. This is a special syntax that matches any path that is not defined in the application. It useful for showing a page that is not found.
+
+**Example:**
+
+```typescript
+@NgModule({
+  imports: [
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent },
+      { path: '**', component: PageNotFoundComponent }
+    ])
+  ],
+  exports: [RouterModule]
+})
+```
+
+42. ### When should you use a router outlet?
+
+When we have an nested route, we can use a router outlet to display the content of the nested route. The router outlet directive help us to maintain the multiple views or page in the same page.
+
+43. ### What is Lazy Loading?
+
+Lazy loading (also called on-demand loading) is an optimization technique for the content, be it a website or a web app.
+Instead of loading the entire web page and rendering it to the user in one go as in bulk loading, the concept of lazy loading assists in loading only the required section and delays the remaining, until it is needed by the user.
+
+44. ### What are Angular guards?
+
+Angular route guards are interfaces provided by Angular which, when implemented, allow us to control the accessibility of a route based on conditions provided in class implementation of that interface. Here are some types of Angular guards: CanActivate, CanActivateChild, CanLoad, CanDeactivate and Resolve.
+
+45. ### What are the core building block of angular
 
 The various building blocks of Angular are:
 
@@ -674,7 +715,26 @@ The various building blocks of Angular are:
 - Services
 - Dependency Injection
 
-41. ### Difference between Angular and AngularJS
+46. ### What is difference between CanActivate and canActivateChild?
+
+```ts
+const routes: Routes = [
+  {
+    path: "parent",
+    component: ParentComponent,
+    canActivateChild: [OnlyDigitsGuard],
+    children: [...],
+  },
+];
+```
+
+- canActivate will only execute when the parent component is not yet created. For example, if we navigate to the parent route it will be called, if we then navigate to a child route it will not. If we directly navigate to the child route, the canActivate guard will also be executed.
+
+- canActivateChild will always be executed while navigating to/between child routes. For example, if we're at a child route child/1 and we navigate to child/2, the guard will get executed. If we directly navigate to a child route, the guard will also get called. If we navigate to the parent route, the canActivateChild guard will not be fired.
+
+- because canActivate is guarding the parent route, the child parameters (and data) are not available on the ActivatedRouteSnapshot of the canActivate guard. To be able to access the child parameters, we have to drill down the child components on the RouterStateSnapshot.
+
+47. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -685,7 +745,7 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-42. ### What are templates in Angular
+48. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -706,7 +766,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-43. ### What Is property binding in angular ?
+49. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -724,7 +784,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-44. ### What is the difference between properties and attributes in HTML?
+50. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
