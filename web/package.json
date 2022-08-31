@@ -49,6 +49,7 @@
 	"type": "module",
 	"dependencies": {
 		"nogimo": "^1.0.8",
+		"react-credit-cards": "^0.8.3",
 		"svelte-markdown": "^0.2.3"
 	}
 }
