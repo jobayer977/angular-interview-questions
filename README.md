@@ -51,10 +51,15 @@
 - [44 What are Angular guards?](#what-are-angular-guards)
 - [45 What are the core building block of angular](#what-are-the-core-building-block-of-angular)
 - [46 What is difference between CanActivate and canActivateChild?](#what-is-difference-between-canactivate-and-canactivatechild)
-- [47 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [48 What are templates in Angular](#what-are-templates-in-angular)
-- [49 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [50 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [47 How many change detectors are in Angular?](#how-many-change-detectors-are-in-angular)
+- [48 What are the practical differences between template driven and Reactive forms?](#what-are-the-practical-differences-between-template-driven-and-reactive-forms)
+- [49 How many types of data binding are there in Angular?](#how-many-types-of-data-binding-are-there-in-angular)
+- [50 What is a template variable?](#what-is-a-template-variable)
+- [51 What is use of ng-container in angular](#what-is-use-of-ng-container-in-angular)
+- [52 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [53 What are templates in Angular](#what-are-templates-in-angular)
+- [54 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [55 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -734,7 +739,58 @@ const routes: Routes = [
 
 - because canActivate is guarding the parent route, the child parameters (and data) are not available on the ActivatedRouteSnapshot of the canActivate guard. To be able to access the child parameters, we have to drill down the child components on the RouterStateSnapshot.
 
-47. ### Difference between Angular and AngularJS
+47. ### How many change detectors are in Angular?
+
+Angular Provides two different ways to manage change detection. Default and onPush strategies.
+
+**Default**: Check every component from the component tree from top to bottom every time an event triggers change detection on browser events, timers, XHRs, and promises.
+
+**onPush**: With OnPush strategy skip checks for components that uses OnPush strategy and all of its child component. It's runs only when the input reference changed or an event from the component or one of it's child component triggers change detection.
+
+48. ### What are the practical differences between template driven and Reactive forms?
+
+- Template-driven forms make use of the "FormsModule", while reactive forms are based on "ReactiveFormsModule".
+- Template-driven forms are asynchronous in nature, whereas Reactive forms are mostly synchronous.
+- In a template-driven approach, most of the logic is driven from the template, whereas in reactive-driven approach, the logic resides mainly in the component or typescript code.
+
+49. ### How many types of data binding are there in Angular?
+
+Angular provides three categories of data binding according to the direction of data flow:
+
+- From source to view
+- From view to source
+- In a two-way sequence of view to source to view
+
+**Interpolation Property Attribute Class Style**
+One-way from data source to view target. Use `[]` or `{{}}` to bind from source to view
+
+```html
+{{expression}} [target]="expression"
+```
+
+**Event**
+One-way from view target to data source. Use `()` to bind from view to source.
+
+```html
+(target)="statement"
+```
+
+**Two-way**
+Two-way. Use `[()]` to bind in a two way sequence of view to source to view
+
+```html
+[(target)]="expression"
+```
+
+50. ### What is a template variable?
+
+Template variables use to pass data from one of a template in another part of the template. Just like variables in JavaScript or TypeScript code, template variables are scoped to the template that declares them.
+
+51. ### What is use of ng-container in angular
+
+ng-container allows us to create a division or section in a template without introducing a new HTML element. The ng-container does not render in the DOM, but content inside it is rendered. ng-container is not a directive, component, class, or interface, but just a syntax element. Container's content.
+
+52. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -745,7 +801,7 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-48. ### What are templates in Angular
+53. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -766,7 +822,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-49. ### What Is property binding in angular ?
+54. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -784,7 +840,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-50. ### What is the difference between properties and attributes in HTML?
+55. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
