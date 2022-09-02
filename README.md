@@ -56,10 +56,15 @@
 - [49 How many types of data binding are there in Angular?](#how-many-types-of-data-binding-are-there-in-angular)
 - [50 What is a template variable?](#what-is-a-template-variable)
 - [51 What is use of ng-container in angular](#what-is-use-of-ng-container-in-angular)
-- [52 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
-- [53 What are templates in Angular](#what-are-templates-in-angular)
-- [54 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [55 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [52 Difference between ng-container and ng-template tags](#difference-between-ng-container-and-ng-template-tags)
+- [53 How does injection work in Angular?](#how-does-injection-work-in-angular)
+- [54 What do you mean by singleton design pattern?](#what-do-you-mean-by-singleton-design-pattern)
+- [55 What are ways to create a singleton service in angular?](#what-are-ways-to-create-a-singleton-service-in-angular)
+- [56 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
+- [57 What is RxJS used for?](#what-is-rxjs-used-for)
+- [58 What are templates in Angular](#what-are-templates-in-angular)
+- [59 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [60 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -790,7 +795,60 @@ Template variables use to pass data from one of a template in another part of th
 
 ng-container allows us to create a division or section in a template without introducing a new HTML element. The ng-container does not render in the DOM, but content inside it is rendered. ng-container is not a directive, component, class, or interface, but just a syntax element. Container's content.
 
-52. ### Difference between Angular and AngularJS
+52. ### Difference between ng-container and ng-template tags
+
+### ng-template
+
+`ng-template` is used for the structural directive like ng-if, ng-for and ng-switch. If you use it without the structural directive, nothing happens and it will render.
+
+**Example:**
+
+```html
+<ng-template>
+	<div>Hi</div>
+</ng-template>
+```
+
+There is nothing shown on the screen.
+
+```html
+<ng-template *ngIf="true">
+	<div>Hi</div>
+</ng-template>
+```
+
+This will show the div on the screen with the text "Hi".
+
+### ng-container
+
+`ng-container` is used to group elements. It is not rendered on the screen. It is used to group elements and apply directives to them.
+
+**Example:**
+
+```html
+<ng-container *ngIf="true">
+	<div>Hi Container</div>
+</ng-container>
+```
+
+This will show the div on the screen with the text "Hi Container".
+
+53. ### How does injection work in Angular?
+
+Angular's Dependency Injection is based on providers, injectors, and tokens. Every Angular module has an injector associated with it. The injector is responsible to create the dependencies and inject them when needed. Dependencies are added to the injector using the providers property of the module metadata.
+
+54. ### What do you mean by singleton design pattern?
+
+It's a creational design pattern that ensures that at any given point in time there exists only a single instance of a class and provides a way to access it globally.
+
+55. ### What are ways to create a singleton service in angular?
+
+There are two ways to create a single service in angular that is by using -
+
+- providedIn property
+- NgModule providers arrays
+
+56. ### Difference between Angular and AngularJS
 
 Difference between the AngularJS & Angular: Although, there are significant key differences between Angular JS & Angular:
 
@@ -801,7 +859,11 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 | Not a mobile friendly framework               | Angular is supported by all the popular mobile browsers.                          |
 | It does not use Dependency Injection.         | It support Dependency Injection.                                                  |
 
-53. ### What are templates in Angular
+57. ### What is RxJS used for?
+
+Reactive Extensions for JavaScript, or RxJS, is a reactive library used to implement reactive programming to deal with async implementation, callbacks, and event-based programs. It can be used in your browser or with Node. js. RxJS observables allow you to publish events.
+
+58. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -822,7 +884,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-54. ### What Is property binding in angular ?
+59. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -840,7 +902,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-55. ### What is the difference between properties and attributes in HTML?
+60. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
