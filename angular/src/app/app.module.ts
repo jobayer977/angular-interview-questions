@@ -27,5 +27,6 @@ import { NgModule } from '@angular/core';
     },
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}
