@@ -1,3 +1,9 @@
 {
-	"conventionalCommits.scopes": ["init", "Topic", "Folder Structure"]
+	"conventionalCommits.scopes": ["init", "Topic", "Folder Structure"],
+	"grammarly.selectors": [
+		{
+			"language": "markdown",
+			"scheme": "file"
+		}
+	]
 }
