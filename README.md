@@ -62,9 +62,11 @@
 - [55 What are ways to create a singleton service in angular?](#what-are-ways-to-create-a-singleton-service-in-angular)
 - [56 Difference between Angular and AngularJS](#difference-between-angular-and-angularjs)
 - [57 What is RxJS used for?](#what-is-rxjs-used-for)
-- [58 What are templates in Angular](#what-are-templates-in-angular)
-- [59 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [60 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [58 What is metadata?](#what-is-metadata)
+- [59 How many lifecycle hooks are there in Angular?](#how-many-lifecycle-hooks-are-there-in-angular)
+- [60 What are templates in Angular](#what-are-templates-in-angular)
+- [61 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [62 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -863,7 +865,38 @@ Difference between the AngularJS & Angular: Although, there are significant key 
 
 Reactive Extensions for JavaScript, or RxJS, is a reactive library used to implement reactive programming to deal with async implementation, callbacks, and event-based programs. It can be used in your browser or with Node. js. RxJS observables allow you to publish events.
 
-58. ### What are templates in Angular
+58. ### What is metadata?
+
+Metadata is used to decorate the class so that it can configure the expected behavior of a class. Decorators are the core concept when developing with Angular (versions 2 and above). The user can use metadata to a class to tell Angular app that AppComponent is the component. Metadata can be attached to the TypeScript using the decorator.
+
+```ts
+@Component({
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+	title = 'app'
+}
+```
+
+`@Component` is a decorator which makes use of configuration object to
+create the component and its view.
+
+59. ### How many lifecycle hooks are there in Angular?
+
+Angular has 8 lifecycle hooks. They are:
+
+1. ngOnChanges
+2. ngDoCheck
+3. ngOnInit
+4. ngAfterContentInit
+5. ngAfterContentChecked
+6. ngAfterViewInit
+7. ngAfterViewChecked
+8. ngOnDestroy
+
+60. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -884,7 +917,7 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-59. ### What Is property binding in angular ?
+61. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -902,7 +935,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-60. ### What is the difference between properties and attributes in HTML?
+62. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 

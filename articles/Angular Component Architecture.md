@@ -2,7 +2,7 @@
 
 In Angular components are internally treated as view data. View-Data is a data structure that holds information about components.
 
-## Independent Component
+## Example of Independent Component
 
 Let's say we have a component:
 
@@ -42,9 +42,9 @@ Hello World
 
 This is how a basic component is rendered in the browser.
 
-## Composable Component
+## Example of Nested Component
 
-Angular components are composable. We can use one component inside another component. Let's say we have a component:
+In composable component. We can use one component inside another component. Let's say we have a component:
 
 ```typescript
 @Component({
@@ -81,7 +81,6 @@ Like Before angular first compiles and creates a view definition and view data s
         }
 
     ],
-    def:{}
 }
 ```
 
@@ -95,8 +94,11 @@ Like Before angular first compiles and creates a view definition and view data s
             renderElement:'h1',
             text: 'App Component'
         },
-
+        {
+            def:HelloComponent
+        }
     ],
-    def:{}
 }
 ```
+
+So, in the composable component, we can see that the view definition of the child component is added to the parent component view definition. And then it will be mapped to the DOM element as well.

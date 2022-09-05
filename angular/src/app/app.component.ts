@@ -1,6 +1,5 @@
-import { UserService, UserServiceTwo } from './User.service';
-
 import { Component } from '@angular/core';
+import { UserService } from './User.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    console.log(this);
+  }
   callPhone(value: any) {
     console.log(value.value);
   }
