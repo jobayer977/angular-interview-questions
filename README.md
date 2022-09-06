@@ -73,8 +73,9 @@
 - [66 What is the difference between promise and observable?](#what-is-the-difference-between-promise-and-observable)
 - [67 What are templates in Angular](#what-are-templates-in-angular)
 - [68 How to create observable from promise](#how-to-create-observable-from-promise)
-- [69 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [70 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [69 What is router in Angular?](#what-is-router-in-angular)
+- [70 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [71 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -1108,7 +1109,11 @@ const observable = from(promise)
 observable.subscribe((x) => console.log(x))
 ```
 
-69. ### What Is property binding in angular ?
+69. ### What is router in Angular?
+
+Angular router can interpret a browser URL as an instruction to navigate to a client-generated view. It can pass optional parameters along to the supporting view component that help it decide what specific content to present. You can bind the router to links on a page, and it will navigate to the appropriate application view when the user clicks a link.
+
+70. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -1126,7 +1131,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-70. ### What is the difference between properties and attributes in HTML?
+71. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
