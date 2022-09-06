@@ -64,9 +64,17 @@
 - [57 What is RxJS used for?](#what-is-rxjs-used-for)
 - [58 What is metadata?](#what-is-metadata)
 - [59 How many lifecycle hooks are there in Angular?](#how-many-lifecycle-hooks-are-there-in-angular)
-- [60 What are templates in Angular](#what-are-templates-in-angular)
-- [61 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [62 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [60 Why do we use service in Angular?](#why-do-we-use-service-in-angular)
+- [61 What is the dependency injection?](#what-is-the-dependency-injection)
+- [62 Where is async pipe used?](#where-is-async-pipe-used)
+- [63 What is * ngFor directive used for?](#what-is-ngfor-directive-used-for)
+- [64 What is custom pipe in Angular?](#what-is-custom-pipe-in-angular)
+- [65 What are observables?](#what-are-observables)
+- [66 What is the difference between promise and observable?](#what-is-the-difference-between-promise-and-observable)
+- [67 What are templates in Angular](#what-are-templates-in-angular)
+- [68 How to create observable from promise](#how-to-create-observable-from-promise)
+- [69 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [70 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -896,7 +904,172 @@ Angular has 8 lifecycle hooks. They are:
 7. ngAfterViewChecked
 8. ngOnDestroy
 
-60. ### What are templates in Angular
+60. ### Why do we use service in Angular?
+
+Service is designed to encapsulate business logic and data with different components of Angular. It is basically a class that has a well-defined purpose to do something. You can create a service class for data or logic that is not associated with any specific view to share across components.
+
+**Example**
+
+```ts
+@Injectable({
+	providedIn: 'root',
+})
+export class UserService {
+	constructor() {}
+	getUsers() {
+		return [
+			{ id: 1, name: 'John' },
+			{ id: 2, name: 'Doe' },
+			{ id: 3, name: 'Smith' },
+		]
+	}
+}
+```
+
+**Usage**
+
+```ts
+@Component({
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+	users: any[] = []
+
+	constructor(private userService: UserService) {}
+
+	ngOnInit() {
+		this.users = this.userService.getUsers()
+	}
+}
+```
+
+61. ### What is the dependency injection?
+
+Dependency injection is a design pattern that allows you to decouple dependencies from a class. DI patterns ask for dependencies from external sources rather than creating them. Angular uses DI to provide new instances of services or values to a class.
+
+62. ### Where is async pipe used?
+
+The async pipe is used to subscribe to an observable or promise and get the latest value it has emitted. It is mostly used with the HTTP service.
+
+**Example**
+
+```ts
+@Component({
+	selector: 'app-root',
+	templateUrl: `
+        <div *ngIf="data | async as users">
+            <ul>
+                <li *ngFor="let user of users">
+                    {{ user.name }}
+                </li>
+            </ul>
+        </div>
+    `,
+	styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+	data: Observable<any>
+	constructor(private http: HttpClient) {}
+	ngOnInit() {
+		this.data = this.http.get('https://jsonplaceholder.typicode.com/users')
+	}
+}
+```
+
+63. ### What is * ngFor directive used for?
+
+The `*ngFor` directive is used to iterate over a collection. The directive is placed on a container element, which becomes the parent of the cloned templates.
+
+The `*ngFor` expression is written in the form `let item of items`, where `items` is the collection to iterate over, and `item` is the current item in the collection.
+
+**Example**
+
+```ts
+@Component({
+	selector: 'app-root',
+	template: `
+		<ul>
+			<li *ngFor="let item of items">{{ item }}</li>
+		</ul>
+	`,
+})
+export class AppComponent {
+	items = ['item1', 'item2', 'item3']
+}
+```
+
+64. ### What is custom pipe in Angular?
+
+Create custom pipes to encapsulate transformations that are not provided with the built-in pipes. Then, use your custom pipe in template expressions, the same way you use built-in pipes—to transform input values to output values for display.
+
+**Example**
+
+The following example shows how to use a custom pipe to display a birthday date in a particular format.
+
+```ts
+import { Pipe, PipeTransform } from '@angular/core'
+
+@Pipe({ name: 'formatDate' })
+export class FormatDatePipe implements PipeTransform {
+	transform(value: string, format: string): string {
+		return formatDate(value, format, 'en-US')
+	}
+}
+```
+
+```ts
+@Component({
+	selector: 'app-root',
+	template: ` <p>The birthday is {{ birthday | formatDate: 'MM/dd/yy' }}</p> `,
+})
+export class AppComponent {
+	birthday = new Date(1988, 3, 15) // April 15, 1988
+}
+```
+
+65. ### What are observables?
+
+Observables are declarative which provide support for passing messages between publishers and subscribers in your application. They are used frequently in Angular and are the recommended technique for event handling, asynchronous programming, and handling multiple values.
+
+**Example**
+
+```ts
+import { Component, OnInit } from '@angular/core'
+
+import { Observable } from 'rxjs'
+
+@Component({
+	selector: 'app-root',
+	template: `
+		<div *ngIf="data | async as users">
+			<ul>
+				<li *ngFor="let user of users">
+					{{ user.name }}
+				</li>
+			</ul>
+		</div>
+	`,
+	styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+	data: Observable<any>
+	constructor(private http: HttpClient) {}
+	ngOnInit() {
+		this.data = this.http.get('https://jsonplaceholder.typicode.com/users')
+	}
+}
+```
+
+66. ### What is the difference between promise and observable?
+
+| Promise                                    | Observable                                   |
+| ------------------------------------------ | -------------------------------------------- |
+| Promise are eager                          | Observable are lazy                          |
+| Promise produce a single value or an error | Observable produce multiple values over time |
+
+67. ### What are templates in Angular
 
 In Angular, templates are the HTML that is used to render the application. It's responsible for the layout and content and how it is displayed in the UI. Every component has an HTML template that declares how that component renders. You define this template either inline or by file path. Angular extends HTML with additional syntax that lets you insert dynamic values from your component. Angular automatically updates the rendered DOM when your component's state changes.
 
@@ -917,7 +1090,25 @@ export class AppComponent {
 
 Here name is a property that is bound to the {{ name }} in the template. It's an syntax that is used to insert dynamic values into the template.
 
-61. ### What Is property binding in angular ?
+68. ### How to create observable from promise
+
+Use the `from` operator to convert a promise to an observable.
+
+```ts
+import { from } from 'rxjs'
+
+const promise = new Promise((resolve) => {
+	setTimeout(() => {
+		resolve('Hello from promise!')
+	}, 1000)
+})
+
+const observable = from(promise)
+
+observable.subscribe((x) => console.log(x))
+```
+
+69. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -935,7 +1126,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-62. ### What is the difference between properties and attributes in HTML?
+70. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 

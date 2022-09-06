@@ -1,4 +1,1 @@
-11. What are lifecycle hooks available?
-
-
-https://hackernoon.com/the-mechanics-of-dom-updates-in-angular-3b2970d5c03d
+60
