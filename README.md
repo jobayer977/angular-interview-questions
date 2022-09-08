@@ -74,8 +74,12 @@
 - [67 What are templates in Angular](#what-are-templates-in-angular)
 - [68 How to create observable from promise](#how-to-create-observable-from-promise)
 - [69 What is router in Angular?](#what-is-router-in-angular)
-- [70 What Is property binding in angular ?](#what-is-property-binding-in-angular)
-- [71 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
+- [70 What is the use of DomSanitizer?](#what-is-the-use-of-domsanitizer)
+- [71 What is rendering engine in Angular?](#what-is-rendering-engine-in-angular)
+- [72 What is a ViewChild Angular?](#what-is-a-viewchild-angular)
+- [73 What is HTTP interceptors in Angular?](#what-is-http-interceptors-in-angular)
+- [74 What Is property binding in angular ?](#what-is-property-binding-in-angular)
+- [75 What is the difference between properties and attributes in HTML?](#what-is-the-difference-between-properties-and-attributes-in-html)
 <br/><br/><br/><br/>
 
 1. ### Why Angular?
@@ -1113,7 +1117,79 @@ observable.subscribe((x) => console.log(x))
 
 Angular router can interpret a browser URL as an instruction to navigate to a client-generated view. It can pass optional parameters along to the supporting view component that help it decide what specific content to present. You can bind the router to links on a page, and it will navigate to the appropriate application view when the user clicks a link.
 
-70. ### What Is property binding in angular ?
+70. ### What is the use of DomSanitizer?
+
+DomSanitizer helps prevent Cross Site Scripting Security bugs (XSS) by sanitizing values to be safe to use in the different DOM contexts.
+
+**Example**
+
+```ts
+import { Component } from '@angular/core'
+
+@Component({
+	selector: 'my-app',
+	template: `
+		<h1>DomSanitizer Example</h1>
+		<p>Safe HTML: {{ safeHtml }}</p>
+		<p>Safe Style: {{ safeStyle }}</p>
+		<p>Safe Script: {{ safeScript }}</p>
+		<p>Safe Url: {{ safeUrl }}</p>
+		<p>Safe Resource Url: {{ safeResourceUrl }}</p>
+	`,
+})
+export class AppComponent {
+	safeHtml: string
+	safeStyle: string
+	safeScript: string
+	safeUrl: string
+	safeResourceUrl: string
+
+	constructor(private sanitizer: DomSanitizer) {
+		this.safeHtml = sanitizer.bypassSecurityTrustHtml(
+			'<script>alert("Hi there")</script>'
+		)
+		this.safeStyle = sanitizer.bypassSecurityTrustStyle('background: red')
+		this.safeScript = sanitizer.bypassSecurityTrustScript('alert("Hi there")')
+		this.safeUrl = sanitizer.bypassSecurityTrustUrl(
+			'javascript:alert("Hi there")'
+		)
+		this.safeResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+			'javascript:alert("Hi there")'
+		)
+	}
+}
+```
+
+71. ### What is rendering engine in Angular?
+
+Angular view engine takes the templates and components we've written and translates them into regular HTML and JavaScript that the browser can read and display.
+
+72. ### What is a ViewChild Angular?
+
+ViewChild is a decorator that allows you to access the DOM element or the component instance of the element to which it is attached. It is used to get a reference to the element or the component instance in the template.
+
+## Example
+
+```ts
+import { Component, ViewChild } from '@angular/core'
+@Component({
+	selector: 'app-child',
+	template: `<p #childElement>child works!</p>`,
+})
+export class ChildComponent {
+	@ViewChild('childElement') childElement: ElementRef
+
+	ngAfterViewInit() {
+		console.log(this.childElement.nativeElement)
+	}
+}
+```
+
+73. ### What is HTTP interceptors in Angular?
+
+HTTP Interceptors is a special type of angular service that we can implement. It's used to apply custom logic to the central point between the client-side and server-side outgoing/incoming HTTP request and response.
+
+74. ### What Is property binding in angular ?
 
 Property binding in Angular helps you set values for properties of HTML elements or directives. Use property binding to do things such as toggle button functionality, set paths programmatically, and share values between components.
 
@@ -1131,7 +1207,7 @@ export class AppComponent {
 
 The above code creates an Angular component that displays an image. The image's source is set to the value of the imageUrl property in the DOM node. A target property is the property of the DOM node that is set to the value of the imageUrl property.
 
-71. ### What is the difference between properties and attributes in HTML?
+75. ### What is the difference between properties and attributes in HTML?
 
 When writing HTML source code, you can define attributes on your HTML elements. Then, once the browser parses your code, a corresponding DOM node will be created. This node is an object, and therefore it has properties.
 
